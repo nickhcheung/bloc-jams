@@ -28,6 +28,21 @@ var albumMarconi = {
   ]
 };
 
+var albumConstellations = {
+  title: "Stars",
+  artist: "The Constellations",
+  label: "Galaxy",
+  year: "2017",
+  albumArtUrl: "assets/images/album_covers/14.png",
+  songs: [
+    { title: "Aquarius", duration: "2.14" },
+    { title: "Gemini", duration: "5.01" },
+    { title: "Leo", duration: "6.42" },
+    { title: "Pegasus", duration: "1.17" },
+    { title: "Ursa", duration: "2.00" }
+  ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
     '<tr class="album-view-song-item">'
@@ -58,8 +73,25 @@ var setCurrentAlbum = function(album) {
   for(var i = 0; i <album.songs.length; i++){
     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
   }
+
 };
 
-window.onload = function() {
-  setCurrentAlbum(albumMarconi);
+var albumImage = document.getElementsByClassName("album-cover-art")[0];
+var albumSwitch = function(){
+  var albumTitle = document.getElementsByClassName("album-view-title")[0].textContent;
+
+  if(albumTitle === "Stars"){
+    setCurrentAlbum(albumPicasso);
+  } else if(albumTitle === "The Colors"){
+    setCurrentAlbum(albumMarconi);
+  } else if(albumTitle === "The Telephone"){
+    setCurrentAlbum(albumConstellations);
+  };
 };
+
+
+window.onload = function() {
+  setCurrentAlbum(albumConstellations);
+};
+
+albumImage.addEventListener("click", albumSwitch);
