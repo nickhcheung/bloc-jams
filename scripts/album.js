@@ -62,8 +62,20 @@ var setCurrentAlbum = function(album) {
 
 var findParentByClassName = function(myNode, parentClass){
   var parent = myNode;
-  while(parent.className !== parentClass){
-    parent = parent.parentNode;
+
+  if(parent.parentNode === null){
+    console.log("No parent found");
+  } else if(parent.parentNode !== null){
+
+    while(parent.className !== parentClass){
+      parent = parent.parentNode;
+
+      if(parent === null){
+        console.log("No parent found with that class name");
+      };
+      
+    };
+
   };
   return parent;
 };
@@ -120,7 +132,7 @@ window.onload = function() {
   setCurrentAlbum(albumMarconi);
 
   songListContainer.addEventListener("mouseover", function(event){
-    
+
     var songItem = getSongItem(event.target);
     var songItemNumber = songItem.getAttribute('data-song-number');
 
