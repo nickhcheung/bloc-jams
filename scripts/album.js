@@ -106,49 +106,48 @@ var setCurrentAlbum = function(album) {
   };
 };
 
-var nextSong = function(){
-  currentlyPlayingSongNumber++;
-  currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
-  var previousSongNumber = currentlyPlayingSongNumber - 1;
+//Single function for next and previous
+var changeSong = function(event){
+  var direction = event.target.parentNode.className;
 
-  //checks if we are at the end of our album and flips it back to the start
-  if(currentlyPlayingSongNumber > currentAlbum.songs.length){
-    currentlyPlayingSongNumber = 1;
-    currentSongFromAlbum = currentAlbum.songs[0];
-    previousSongNumber = currentAlbum.songs.length;
+  if(direction === "previous"){
+    setSong(currentlyPlayingSongNumber - 1);;
+    var previousSongNumber = currentlyPlayingSongNumber + 1;
+
+
+    if(currentlyPlayingSongNumber < 1){
+      currentlyPlayingSongNumber = currentAlbum.songs.length;
+      currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
+      previousSongNumber = 1;
+    };
+
+    var $previousSongItem = getSongNumberCell(previousSongNumber);
+    var $nextSongItem = getSongNumberCell(currentlyPlayingSongNumber);
+
+    $nextSongItem.html(pauseButtonTemplate);
+    $previousSongItem.html(previousSongNumber);
+
+  } else if(direction === "next"){
+    setSong(currentlyPlayingSongNumber + 1);
+    var previousSongNumber = currentlyPlayingSongNumber - 1;
+
+    //checks if we are at the end of our album and flips it back to the start
+    if(currentlyPlayingSongNumber > currentAlbum.songs.length){
+      currentlyPlayingSongNumber = 1;
+      currentSongFromAlbum = currentAlbum.songs[0];
+      previousSongNumber = currentAlbum.songs.length;
+    };
+
+    //select's the elements
+    var $previousSongItem = getSongNumberCell(previousSongNumber);
+    var $nextSongItem = getSongNumberCell(currentlyPlayingSongNumber);
+
+    //executes changes
+    $nextSongItem.html(pauseButtonTemplate);
+    $previousSongItem.html(previousSongNumber);
+
   };
-
-  //select's the elements
-  var $previousSongItem = getSongNumberCell(previousSongNumber);
-  var $nextSongItem = getSongNumberCell(currentlyPlayingSongNumber);
-
-  //executes changes
-  $nextSongItem.html(pauseButtonTemplate);
-  $previousSongItem.html(previousSongNumber);
-
   updatePlayerBarSong();
-
-};
-
-var previousSong = function(){
-  currentlyPlayingSongNumber--;
-  currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
-  var previousSongNumber = currentlyPlayingSongNumber + 1;
-
-  if(currentlyPlayingSongNumber < 1){
-    currentlyPlayingSongNumber = currentAlbum.songs.length;
-    currentSongFromAlbum = currentAlbum.songs[currentlyPlayingSongNumber - 1];
-    previousSongNumber = 1;
-  };
-
-  var $previousSongItem = getSongNumberCell(previousSongNumber);
-  var $nextSongItem = getSongNumberCell(currentlyPlayingSongNumber);
-
-  $nextSongItem.html(pauseButtonTemplate);
-  $previousSongItem.html(previousSongNumber);
-
-  updatePlayerBarSong();
-
 };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
@@ -166,6 +165,6 @@ var $nextButton = $(".main-controls .next");
 
 $(document).ready(function(){
   setCurrentAlbum(albumMarconi);
-  $previousButton.click(previousSong);
-  $nextButton.click(nextSong);
+  $previousButton.click(changeSong);
+  $nextButton.click(changeSong);
 });
