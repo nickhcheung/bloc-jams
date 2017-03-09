@@ -1,11 +1,15 @@
 body.landing {
-  background-color: rgb(58, 23, 63);
+  background-image: url(../assets/images/blurred_backgrounds/star_background.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 }
 
 .hero-content {
   position: relative;
   min-height: 600px;
-  background-image: url(../assets/images/bloc_jams_bg.jpg);
+  background-image: url(../assets/images/hero_pic.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -20,9 +24,10 @@ body.landing {
   width: 100%;
   text-align: center;
   font-size: 4rem;
-  font-weight: 300;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5rem;
+  color: rgb(233,50,117);
   text-shadow: 1px 1px 0px rgb(58,23,63);
 }
 

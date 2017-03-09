@@ -1,32 +1,30 @@
-var buildCollectionItemTemplate = function(){
+var buildCollectionItemTemplate = function(album){
   var template =
   '<div class="collection-album-container column fourth">'
-   + '  <img src="assets/images/album_covers/01.png"/>'
+   + '  <a href="album.html"><img src="'+ album.albumArtUrl +'"/></a>'
    + '  <div class="collection-album-info caption">'
    + '    <p>'
-   + '      <a class="album-name" href="album.html"> The Colors </a>'
+   + '      <a class="album-name" href="album.html">'+ album.title +'</a>'
    + '      <br/>'
-   + '      <a href="album.html"> Pablo Picasso </a>'
+   + '      <p class="album-artist">'+ album.artist +'</p>'
    + '      <br/>'
-   + '      X songs'
+   + '      <p class="num-songs">'+ album.songs.length +' Tracks</p>'
    + '      <br/>'
    + '    </p>'
    + '  </div>'
    + '</div>'
    ;
 
-   return $(template);
+  return $(template);
  };
+
 
 $(window).load(function(){
 
   var $collectionContainer = $(".album-covers");
 
   $collectionContainer.empty();
-
-  for(var i = 0; i < 12; i++){
-    var $newThumbnail = buildCollectionItemTemplate();
-    $collectionContainer.append($newThumbnail);
-  }
+  $collectionContainer.append(buildCollectionItemTemplate(albumPicasso));
+  $collectionContainer.append(buildCollectionItemTemplate(wakingAtDawn));
 
 });

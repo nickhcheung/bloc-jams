@@ -1,5 +1,5 @@
 body.album {
-  background-image: url(../assets/images/blurred_backgrounds/blur_bg_3.jpg);
+  background-image: url(../assets/images/blurred_backgrounds/star_background.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -12,6 +12,7 @@ body.album {
   left: 20%;
   margin-top: 1rem;
   width: 60%;
+  cursor: pointer;
 }
 
 .album-view-details {

@@ -133,6 +133,11 @@ var updateSeekBarWhileSongPlays = function(){
 
       updateSeekPercentage($seekBar, seekBarFillRatio);
       setCurrentTimeInPlayerBar(this.getTime());
+
+      //added into timeupdate tracking so when the song ends, next song plays
+      if(currentSoundFile.isEnded()){
+        nextSong();
+      };
     });
   };
 };
@@ -296,7 +301,14 @@ var togglePlayFromPlayerBar = function(){
     $playPauseButton.html(playerBarPlayButton);
     currentSoundFile.pause();
   };
+};
 
+var switchAlbum = function(){
+  if(currentAlbum === albumPicasso){
+    setCurrentAlbum(wakingAtDawn);
+  } else{
+    setCurrentAlbum(albumPicasso);
+  };
 };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
@@ -314,6 +326,7 @@ var currentVolume = 80;
 var $playPauseButton = $(".main-controls .play-pause");
 var $previousButton = $(".main-controls .previous");
 var $nextButton = $(".main-controls .next");
+var $albumArt = $(".album-cover-art");
 
 $(document).ready(function(){
   setCurrentAlbum(albumPicasso);
@@ -321,4 +334,5 @@ $(document).ready(function(){
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
   $playPauseButton.click(togglePlayFromPlayerBar);
+  $albumArt.click(switchAlbum);
 });
